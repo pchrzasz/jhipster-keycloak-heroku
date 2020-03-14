@@ -40,6 +40,17 @@ file_env() {
 	unset "$fileVar"
 }
 
+##################
+# Add admin user #
+##################
+
+file_env 'KEYCLOAK_USER'
+file_env 'KEYCLOAK_PASSWORD'
+
+if [ $KEYCLOAK_USER ] && [ $KEYCLOAK_PASSWORD ]; then
+    /opt/jboss/keycloak/bin/add-user-keycloak.sh --user $KEYCLOAK_USER --password $KEYCLOAK_PASSWORD
+fi
+
 ############
 # Hostname #
 ############
@@ -54,6 +65,14 @@ if [ "$KEYCLOAK_HOSTNAME" != "" ]; then
     if [ "$KEYCLOAK_HTTPS_PORT" != "" ]; then
         SYS_PROPS+=" -Dkeycloak.hostname.fixed.httpsPort=$KEYCLOAK_HTTPS_PORT"
     fi
+fi
+
+################
+# Realm import #
+################
+
+if [ "$KEYCLOAK_IMPORT" ]; then
+    SYS_PROPS+=" -Dkeycloak.import=$KEYCLOAK_IMPORT"
 fi
 
 ########################
@@ -169,5 +188,5 @@ fi
 # Start Keycloak #
 ##################
 
-exec /opt/jboss/keycloak/bin/standalone.sh $SYS_PROPS $@ -Djboss.http.port=$PORT
+exec /opt/jboss/keycloak/bin/standalone.sh $SYS_PROPS $@ -Djboss.http.port=$PORT 
 exit $?

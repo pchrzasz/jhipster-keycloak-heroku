@@ -25,14 +25,12 @@
       "value": "true"
     }
   },
-  "formation": [
-    {
-      "web": {
-        "quantity": 1,
-        "size": "hobby"
-      }
-    }
-  ],
+   "formation": {
+        "web": {
+            "quantity": 1,
+            "size": "Performance-M"
+        }
+    },
   "addons": [
     {
       "plan": "heroku-postgresql:hobby-dev"

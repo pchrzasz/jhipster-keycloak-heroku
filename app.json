@@ -8,7 +8,7 @@
     "keycloak",
     "heroku"
   ],
-  "image": "registry.heroku.com/term-keycloak/keycloak",
+  "repository": "https://github.com/pchrzasz/term-hunter-keycloak-heroku",
   "stack": "container",
   "success_url": "/",
   "env": {
